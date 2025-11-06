@@ -1,16 +1,10 @@
-import http from 'http';
+import express from "express";
 
+const app = express();
 const port = 3000;
 
-const rotas = {
-    "/": "Node.js+Express+Mongodb"
-};
+app.use(express.json());
 
-const server = http.createServer((req,res) => {
-    res.writeHead(200, {"Contente-Type": "text/plain"});
-    res.end(rotas[req.url]);
-});
-
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`)
 });
