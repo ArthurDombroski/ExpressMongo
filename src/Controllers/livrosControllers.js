@@ -1,12 +1,14 @@
-const livros = [
-    {
-        id: 1,
-        titulo: "Senhor dos aneis"
-    },
-    {
-        id: 2,
-        titulo: "Harry Potter"
-    }
-]
+import livros from "../Models/livros.js"
 
-export default livros;
+const livrosController = {
+    
+    getLivros(req,res)  {
+        res.status(200).json(livros);
+    },
+
+    postLivros(req,res)  {
+         livros.push(req.body);
+    }
+}
+
+export default livrosController;

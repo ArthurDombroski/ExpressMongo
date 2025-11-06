@@ -1,10 +1,10 @@
-import express from "express"
-import livros from "../Controllers/livrosControllers.js"
+import express from "express";
+import livrosController from "../Controllers/livrosControllers.js"
 
 const routes = express.Router()
 
-routes.get("/livros", (req,res) => {
-    res.status(200).json(livros);
-})
+routes.get("/livros", livrosController.getLivros);
+
+routes.post("/livros", livrosController.postLivros);
 
 export default routes;
