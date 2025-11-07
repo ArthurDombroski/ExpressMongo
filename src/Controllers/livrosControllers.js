@@ -8,6 +8,7 @@ const livrosController = {
 
     postLivros(req,res)  {
          livros.push(req.body);
+         res.status(201).send("Livro cadastrado com sucesso");
     }
 }
 
