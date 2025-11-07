@@ -7,4 +7,6 @@ routes.get("/livros", livrosController.getLivros);
 
 routes.post("/livros", livrosController.postLivros);
 
+routes.get("/livros/:id", livrosController.getIDLivros);
+
 export default routes;
