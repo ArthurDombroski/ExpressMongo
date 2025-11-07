@@ -21,16 +21,37 @@ const livrosController = {
         const index = buscaLivroID(req.params.id);
 
         if (index == -1) {
-            res.status(404).send("Livro não existe");
+            return res.status(404).send("Livro não existe");
         }
+
         res.status(200).json(livros[index]);
     },
 
     putLivros(req, res) {
         const index = buscaLivroID(req.params.id);
+
+        if (index == -1) {
+            return res.status(404).send("Livro não existe");
+        }
+
         livros[index].titulo = req.body.titulo;
         res.status(200).json(livros)
+    },
+
+    deleteLivros(req, res) {
+        const index = buscaLivroID(req.params.id);
+
+        if (index == -1) {
+            return res.status(404).send("Livro não existe");
+        }
+
+        livros.splice(index, 1);
+
+        res.status(200).send("Livro deletado com sucesso")
+
     }
+
 }
+
 
 export default livrosController;
