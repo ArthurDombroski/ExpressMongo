@@ -13,4 +13,6 @@ routes.put("/livros/:id", livrosController.putLivros);
 
 routes.delete("/livros/:id", livrosController.deleteLivros);
 
+routes.patch("/livros/:id", livrosController.patchLivros);
+
 export default routes;

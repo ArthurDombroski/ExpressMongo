@@ -35,7 +35,20 @@ const livrosController = {
         }
 
         livros[index].titulo = req.body.titulo;
-        res.status(200).json(livros)
+        res.status(200).json(livros[index]);
+    },
+
+    patchLivros(req, res) {
+        const index = buscaLivroID(req.params.id);
+
+        if (index == -1) {
+            return res.status(404).send("Livro não existe");
+        }
+
+        const dados = req.body;
+
+        Object.assign(livros[index], dados);
+        res.status(200).json(livros[index]);
     },
 
     deleteLivros(req, res) {
