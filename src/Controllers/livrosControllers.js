@@ -1,15 +1,11 @@
-import livros from "../Models/livros.js"
-
-function buscaLivroID(id) {
-    return livros.findIndex(livro => {
-        return livro.id === Number(id);
-    });
-}
+import { ObjectId } from "mongodb";
+import livro from "../Models/livros.js"
 
 const livrosController = {
 
-    getLivros(req, res) {
-        res.status(200).json(livros);
+    async getLivros(req, res) {
+        const listaLivros = await livro.find({});
+        res.status(200).json(listaLivros);
     },
 
     postLivros(req, res) {
@@ -17,14 +13,19 @@ const livrosController = {
         res.status(201).send("Livro cadastrado com sucesso");
     },
 
-    getIDLivros(req, res) {
-        const index = buscaLivroID(req.params.id);
+    async getIDLivros(req, res) {
+        try {
+            const id = req.params.id;
+            const livroEncontrado = await livro.findById(id);
 
-        if (index == -1) {
-            return res.status(404).send("Livro não existe");
+            if(!livroEncontrado) {
+                res.status(404).send("O livro não existe");
+            }
+
+            return res.status(200).json(livroEncontrado);
+        } catch(error) {
+            return res.status(500).json("Erro ao buscar o livro");
         }
-
-        res.status(200).json(livros[index]);
     },
 
     putLivros(req, res) {
