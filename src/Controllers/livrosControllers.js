@@ -8,9 +8,15 @@ const livrosController = {
         res.status(200).json(listaLivros);
     },
 
-    postLivros(req, res) {
-        livros.push(req.body);
-        res.status(201).send("Livro cadastrado com sucesso");
+    async postLivros(req, res) {
+        const novoLivro = req.body;
+        try{
+            const livroCriado = await livro.create(novoLivro);
+            return res.status(201).json(livroCriado);
+        } catch(error) {
+            return res.status(500).json({ message: "...", error });
+        }
+    
     },
 
     async getIDLivros(req, res) {
