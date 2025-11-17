@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import {livro} from "../Models/model.js"
+import livro from "../Models/livros.js"
 
 const livrosController = {
 
