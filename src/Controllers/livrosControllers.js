@@ -75,7 +75,18 @@ const livrosController = {
             return res.status(500).json({ message: "...", error });
         }
 
-    }
+    },
+
+    async getLivrosEditora (req,res) {
+        const editora = req.query.editora;
+        try {
+            const livroEncontradoEditora = await livro.find({editora});
+            return res.status(200).json(livroEncontradoEditora);
+        } catch (error) {
+            return res.status(500).json("Erro ao buscar o livro");
+        }
+    },
+
 
 }
 

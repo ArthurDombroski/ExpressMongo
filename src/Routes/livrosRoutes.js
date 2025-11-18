@@ -5,14 +5,18 @@ const routes = express.Router()
 
 routes.get("/", livrosController.getLivros);
 
-routes.post("/", livrosController.postLivros);
+routes.get("/busca", livrosController.getLivrosEditora);
 
 routes.get("/:id", livrosController.getIDLivros);
 
+routes.post("/", livrosController.postLivros);
+
 routes.put("/:id", livrosController.putLivros);
+
+routes.patch("/:id", livrosController.patchLivros);
 
 routes.delete("/:id", livrosController.deleteLivros);
 
-routes.patch("/:id", livrosController.patchLivros);
+
 
 export default routes;
