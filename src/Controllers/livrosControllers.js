@@ -1,5 +1,7 @@
 import { ObjectId } from "mongodb";
-import livro from "../Models/livros.js"
+import livro from "../Models/livros.js";
+import { autor } from "../Models/autor.js";
+
 
 const livrosController = {
 
@@ -11,10 +13,14 @@ const livrosController = {
     async postLivros(req, res) {
         const novoLivro = req.body;
         try {
-            const livroCriado = await livro.create(novoLivro);
+            const autorEncontrado = await autor.findById(novoLivro.autor);
+            const livroCompleto ={...novoLivro, autor: {
+                ...autorEncontrado._doc
+            }};
+            const livroCriado =  await livro.create(livroCompleto)
             return res.status(201).json(livroCriado);
         } catch (error) {
-            return res.status(500).json({ message: "...", error });
+            return res.status(500).send(error);
         }
 
     },

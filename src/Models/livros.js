@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import mongoose, { mongo } from "mongoose";
+import {autorSchema} from "./autor.js"
 
 const livroSchema = new mongoose.Schema({
     id: {
@@ -20,7 +21,9 @@ const livroSchema = new mongoose.Schema({
 
     paginas: {
         type: Number
-    }
+    },
+
+    autor: autorSchema
 
 }, {versionKey: false});
 

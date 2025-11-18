@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import autor  from "../Models/autor.js"
+import {autor}  from "../Models/autor.js"
 
 const autorController = {
 
