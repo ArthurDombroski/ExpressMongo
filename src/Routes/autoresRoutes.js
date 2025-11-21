@@ -1,5 +1,6 @@
 import express from "express";
 import autorController from "../Controllers/autorController.js";
+import validarCampos from "../Middlewares/validMiddleware.js";
 
 const routes = express.Router();
 
@@ -7,7 +8,7 @@ routes.get("/", autorController.getAutor);
 
 routes.get("/:id", autorController.getIdAutor);
 
-routes.post("/", autorController.postAutor);
+routes.post("/", validarCampos(["nome", "nacionalidade"]), autorController.postAutor);
 
 routes.patch("/:id", autorController.patchAutor);
 
