@@ -10,7 +10,7 @@ const livrosController = {
         res.status(200).json(listaLivros);
     },
 
-    async postLivros(req, res) {
+    async postLivros(req, res, next) {
         const novoLivro = req.body;
         try {
             const autorEncontrado = await autor.findById(novoLivro.autor);
@@ -20,27 +20,27 @@ const livrosController = {
             const livroCriado =  await livro.create(livroCompleto)
             return res.status(201).json(livroCriado);
         } catch (error) {
-            return res.status(500).send(error);
+            next(error);
         }
 
     },
 
-    async getIDLivros(req, res) {
+    async getIDLivros(req, res, next) {
         try {
             const id = req.params.id;
             const livroEncontrado = await livro.findById(id);
 
-            if (!livroEncontrado) {
-                res.status(404).send("O livro não existe");
-            }
+            // if (!livroEncontrado) {
+            //     res.status(404).send("O livro não existe");
+            // }
 
             return res.status(200).json(livroEncontrado);
         } catch (error) {
-            return res.status(500).json("Erro ao buscar o livro");
+            next(error);
         }
     },
 
-    async putLivros(req, res) {
+    async putLivros(req, res, next) {
         const index = req.params.id;
         const atualizaLivro = req.body;
 
@@ -48,12 +48,12 @@ const livrosController = {
             const livroAtualizado = await livro.findByIdAndUpdate(index, atualizaLivro);
             return res.status(200).json("Livro atualizado com sucesso!");
         } catch(error){
-            return res.status(500).json({ message: "...", error });
+            next(error);
         }
         
     },
 
-    async patchLivros(req, res) {
+    async patchLivros(req, res, next) {
         const index = req.params.id;
         const dados = req.body;
 
@@ -61,29 +61,29 @@ const livrosController = {
             const dadosAtualiazado = await livro.findByIdAndUpdate(index, dados)
             return res.status(200).json("Livro atualizado com sucesso!");
         } catch(error) {
-            return res.status(500).json({ message: "...", error });
+            next(error);
         }
     },
 
-    async deleteLivros(req, res) {
+    async deleteLivros(req, res, next) {
         const index = req.params.id;
 
         try{
             const deletaLivro = await livro.findByIdAndDelete(index)
             return res.status(200).send("Livro deletado com sucesso")
         } catch(error) {
-            return res.status(500).json({ message: "...", error });
+            next(error);
         }
 
     },
 
-    async getLivrosEditora (req,res) {
+    async getLivrosEditora (req,res, next) {
         const editora = req.query.editora;
         try {
             const livroEncontradoEditora = await livro.find({editora});
             return res.status(200).json(livroEncontradoEditora);
         } catch (error) {
-            return res.status(500).json("Erro ao buscar o livro");
+            next(error);
         }
     },
 
