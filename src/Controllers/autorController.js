@@ -1,5 +1,6 @@
 import { ObjectId } from "mongodb";
 import {autor}  from "../Models/autor.js"
+import mongoose from "mongoose";
 
 const autorController = {
 
@@ -18,12 +19,20 @@ const autorController = {
             const index = req.params.id;
             const autorEncontrado = await autor.findById(index);
 
-            if (!autorEncontrado) { 
+            if (autorEncontrado == null) { 
                 return res.status(404).send("O autor não existe"); 
-            }
+                
+            } 
+                
             return res.status(200).json(autorEncontrado);
+            
+            
         } catch (error) {
-            return res.status(500).send("Erro ao buscar autor");
+            if(error instanceof mongoose.Error.CastError) {
+                return res.status(400).send("Um ou mais dados fornecidos estão incorretos");
+            }
+
+            res.status(500).send("Erro ao buscar o autor");
         }
     },
 
